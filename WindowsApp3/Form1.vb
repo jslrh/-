@@ -56,7 +56,7 @@ Public Class Form1
         ComboBox1.SelectedIndex = 6
         ComboBox2.SelectedIndex = 0
         ComboBox4.SelectedIndex = 0
-        '寻找方正大黑字体，如果存在就获取，不存在就获取微软雅黑为默认字体
+        '寻找方正大黑字体，如果存在就获取，不存在就获取微软雅黑为默认字体o 
         RadioButton3.Checked = True
         mymou.DefFontContent()
     End Sub
