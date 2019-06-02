@@ -368,6 +368,7 @@ Partial Class Form1
         Me.RadioButton4.Size = New System.Drawing.Size(88, 19)
         Me.RadioButton4.TabIndex = 1
         Me.RadioButton4.TabStop = True
+        Me.RadioButton4.Tag = "2"
         Me.RadioButton4.Text = "智能模式"
         Me.RadioButton4.UseVisualStyleBackColor = True
         '
@@ -380,6 +381,7 @@ Partial Class Form1
         Me.RadioButton3.Size = New System.Drawing.Size(88, 19)
         Me.RadioButton3.TabIndex = 0
         Me.RadioButton3.TabStop = True
+        Me.RadioButton3.Tag = "1"
         Me.RadioButton3.Text = "拉伸模式"
         Me.RadioButton3.UseVisualStyleBackColor = True
         '

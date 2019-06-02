@@ -5,7 +5,7 @@ Module mymou
 
     Public fontInter As String
     Public fontcolor As Integer
-
+    Dim core As New CorelDRAW.Application
     Public WithEvents formdo As ComboBox '调用下拉框的事件
     Sub DefFontContent()
         Dim unused = Form1.ComboBox3
@@ -24,7 +24,65 @@ Module mymou
             fontcolor = 100
         End If
     End Sub
-    Sub seachFont() '字母找字
+    Sub zhinengModel()
+        Dim checkeds As RadioButton
+        checkeds = Form1.GroupBox3.Controls.OfType(Of RadioButton)().FirstOrDefault(Function(r) r.Checked = True)
+        core.ActiveDocument.Unit = VGCore.cdrUnit.cdrCentimeter
+        core.ActiveDocument.ReferencePoint = VGCore.cdrReferencePoint.cdrBottomLeft
+        If checkeds.Tag = 2 Then
+            MsgBox("智能模式")
+
+        ElseIf checkeds.Tag = 1 Then
+
+            core.ActiveDocument.Unit = VGCore.cdrUnit.cdrCentimeter
+            core.ActiveDocument.ReferencePoint = VGCore.cdrReferencePoint.cdrBottomLeft
+            '开始循环，循环textbox里面的行数
+            If Form1.TextBox1.Text <> "" Then
+                Dim shapPosY As Integer = 0
+                Dim creat_shape As Shape
+                Dim creat_text As Shape
+                Dim i As Long
+                Dim loadingshow As Long
+                Form1.Hide()
+                loading.Show()
+                For i = 0 To Form1.TextBox1.Lines.Count - 1
+                    '定义创建位置变量
+                    loadingshow += 1
+                    If Form1.TextBox1.Lines(i) <> "" Then
+                        creat_shape = core.ActiveLayer.CreateRectangle2(0, shapPosY, Form1.ComboBox1.Text, Form1.ComboBox2.Text)
+                        creat_text = core.ActiveLayer.CreateArtisticText(0, shapPosY, Form1.TextBox1.Lines(i), VGCore.cdrTextLanguage.cdrSimplifiedChinese, , fontInter, 1250)
+                        '设置文字大小
+                        creat_text.SetSize(0, 43)
+                        '设置文字字体
+                        '让文字居中算式
+                        '如果可以填充就执行
+                        If creat_shape.CanHaveFill = True Then
+                            creat_shape.Fill().UniformColor.CMYKAssign(0, 100, 100, 0)
+                            creat_text.Fill().UniformColor.CMYKAssign(0, 0, fontcolor, 0)
+                        End If
+
+                        'If creat_text.SizeHeight <= 43 Then
+                        'MsgBox((creat_shape.SizeHeight - creat_text.SizeHeight) / 2)
+
+                        creat_text.SetPosition((creat_shape.SizeWidth * 0.08) / 2, ((creat_shape.SizeHeight - creat_text.SizeHeight) / 2) + shapPosY)
+                        creat_text.SizeWidth = creat_shape.SizeWidth - (creat_shape.SizeWidth * 0.08)
+
+                        'End If
+                        '设置创建位置增加
+                        shapPosY += 75
+                    Else
+                        MsgBox("有一条没有文字，我自动给你跳过了哦")
+                    End If
+
+
+                Next
+                '创建矩形  创建文本
+                If loadingshow = Form1.TextBox1.Lines.Count Then
+                    loading.Dispose()
+                    Form1.Show()
+                End If
+            End If
+        End If
 
 
     End Sub
