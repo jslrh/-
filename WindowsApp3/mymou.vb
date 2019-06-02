@@ -25,17 +25,35 @@ Module mymou
         End If
     End Sub
     Sub zhinengModel()
+
         Dim checkeds As RadioButton
         checkeds = Form1.GroupBox3.Controls.OfType(Of RadioButton)().FirstOrDefault(Function(r) r.Checked = True)
         core.ActiveDocument.Unit = VGCore.cdrUnit.cdrCentimeter
         core.ActiveDocument.ReferencePoint = VGCore.cdrReferencePoint.cdrBottomLeft
         If checkeds.Tag = 2 Then
-            MsgBox("智能模式")
+
+            If Form1.TextBox1.Text <> "" Then
+                Dim creat_zn_shape As Shape
+                Dim creat_zn_text As Shape
+                Dim i As Long, pos_zn_y As Long
+                For i = 0 To Form1.TextBox1.Lines.Length - 1
+                    creat_zn_shape = core.ActiveLayer.CreateRectangle2(0, pos_zn_y, Form1.ComboBox1.Text, Form1.ComboBox2.Text)
+                    creat_zn_text = core.ActiveLayer.CreateArtisticText(0, pos_zn_y, Form1.TextBox1.Lines(i), VGCore.cdrTextLanguage.cdrSimplifiedChinese,, fontInter, 1230)
+                    If creat_zn_shape.CanHaveFill = True Then
+                        creat_zn_shape.Fill.UniformColor.CMYKAssign(0, 100, 100, 0)
+                        creat_zn_text.Fill.UniformColor.CMYKAssign(0, 0, 0, 0)
+                    End If
+                    pos_zn_y += 75
+
+                Next
+
+
+            End If
+
+
 
         ElseIf checkeds.Tag = 1 Then
 
-            core.ActiveDocument.Unit = VGCore.cdrUnit.cdrCentimeter
-            core.ActiveDocument.ReferencePoint = VGCore.cdrReferencePoint.cdrBottomLeft
             '开始循环，循环textbox里面的行数
             If Form1.TextBox1.Text <> "" Then
                 Dim shapPosY As Integer = 0
