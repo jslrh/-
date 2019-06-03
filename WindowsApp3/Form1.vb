@@ -115,7 +115,6 @@ Public Class Form1
             Dim k As Integer = Len(mystr)
             For J = 1 To k
                 i = Asc(Mid(mystr, J, 1))
-
                 Dim Py As String
                 Select Case i
                     Case -20319 To -20284 : Py = "A"

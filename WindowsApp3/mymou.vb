@@ -5,8 +5,8 @@ Module mymou
 
     Public fontInter As String
     Public fontcolor As Integer
-    Dim core As New CorelDRAW.Application
-    Public WithEvents formdo As ComboBox '调用下拉框的事件
+    Private core As New CorelDRAW.Application
+    Public WithEvents Formdo As ComboBox '调用下拉框的事件
     Sub DefFontContent()
         Dim unused = Form1.ComboBox3
         For Each fonts In Form1.ComboBox3.Items
@@ -17,14 +17,14 @@ Module mymou
         Next
         Form1.ComboBox3.SelectedText = fontInter
     End Sub
-    Sub fontColorChange() Handles formdo.SelectedIndexChanged '如果更改就改变颜色
+    Sub FontColorChange() Handles Formdo.SelectedIndexChanged '如果更改就改变颜色
         If Form1.ComboBox4.SelectedIndex = 0 Then
             fontcolor = 0
         Else
             fontcolor = 100
         End If
     End Sub
-    Sub zhinengModel()
+    Sub ZhinengModel()
 
         Dim checkeds As RadioButton
         checkeds = Form1.GroupBox3.Controls.OfType(Of RadioButton)().FirstOrDefault(Function(r) r.Checked = True)
@@ -35,16 +35,25 @@ Module mymou
             If Form1.TextBox1.Text <> "" Then
                 Dim creat_zn_shape As Shape
                 Dim creat_zn_text As Shape
-                Dim i As Long, pos_zn_y As Long
+                Dim i As Long, pos_zn_y As Long = 0
+                Dim new_shapcing As Long = 0
                 For i = 0 To Form1.TextBox1.Lines.Length - 1
+                    Dim current_long As Double, current_height As Double
                     creat_zn_shape = core.ActiveLayer.CreateRectangle2(0, pos_zn_y, Form1.ComboBox1.Text, Form1.ComboBox2.Text)
                     creat_zn_text = core.ActiveLayer.CreateArtisticText(0, pos_zn_y, Form1.TextBox1.Lines(i), VGCore.cdrTextLanguage.cdrSimplifiedChinese,, fontInter, 1230)
                     If creat_zn_shape.CanHaveFill = True Then
                         creat_zn_shape.Fill.UniformColor.CMYKAssign(0, 100, 100, 0)
                         creat_zn_text.Fill.UniformColor.CMYKAssign(0, 0, 0, 0)
                     End If
+                    current_long = creat_zn_shape.SizeWidth * 0.08 / 2
+                    current_height = (creat_zn_shape.SizeHeight - creat_zn_text.SizeHeight) / 2
+                    creat_zn_text.SetPosition(current_long, current_height + pos_zn_y)
+                    Dim changesTextwidth As Double = creat_zn_text.SizeWidth
+                    Do
+                        creat_zn_text.Text.Story.CharSpacing += 10
+                    Loop While creat_zn_text.SizeWidth < creat_zn_shape.SizeWidth - current_long * 2 * 0.7
+                    creat_zn_text.SetSize(creat_zn_shape.SizeWidth - current_long * 2, 42.5)
                     pos_zn_y += 75
-
                 Next
 
 
