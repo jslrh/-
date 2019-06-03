@@ -51,9 +51,10 @@ Module mymou
                     Dim changesTextwidth As Double = creat_zn_text.SizeWidth
                     Do
                         creat_zn_text.Text.Story.CharSpacing += 10
-                    Loop While creat_zn_text.SizeWidth < creat_zn_shape.SizeWidth - current_long * 2 * 0.7
+                    Loop While creat_zn_text.SizeWidth < (creat_zn_shape.SizeWidth - current_long * 2) * 0.6
                     creat_zn_text.SetSize(creat_zn_shape.SizeWidth - current_long * 2, 42.5)
                     pos_zn_y += 75
+                    MsgBox((creat_zn_shape.SizeWidth - current_long * 2) * 0.7)
                 Next
 
 

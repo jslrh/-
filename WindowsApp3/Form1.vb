@@ -142,7 +142,9 @@ Public Class Form1
                     Case -11055 To -10247 : Py = "Z"
                     Case Else : Py = CStr(Chr(i))
                 End Select
+#Disable Warning BC42104 ' 变量“Pstr”在赋值前被使用。可能会在运行时导致 null 引用异常。
                 Pstr = Pstr & Py
+#Enable Warning BC42104 ' 变量“Pstr”在赋值前被使用。可能会在运行时导致 null 引用异常。
             Next
             HzTopy = Pstr
         Catch ex As Exception
