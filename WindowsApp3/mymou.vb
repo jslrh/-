@@ -115,7 +115,21 @@ Module mymou
 
     End Sub
 
-    Sub t()
+    Sub Creat_tiaofu()
+        Dim creat_s As Shape
+        Dim creat_t As Shape
+        creat_s = core.ActiveLayer.CreateRectangle2(0, 0, 70, 8000)
+        creat_t = core.ActiveLayer.CreateArtisticText(0, 0, "我是文字", VGCore.cdrTextLanguage.cdrSimplifiedChinese,, "微软雅黑"， 1280)
+    End Sub
+
+    Sub Creat_Tiao()
+        Dim checked = Form1.GroupBox1.Controls.OfType(Of RadioButton).FirstOrDefault(Function(r) r.Checked = True)
+        If checked.Tag = 1 Then
+            ZhinengModel()
+        Else
+            Creat_tiaofu()
+        End If
+
 
     End Sub
 

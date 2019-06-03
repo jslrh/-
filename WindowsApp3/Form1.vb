@@ -84,9 +84,8 @@ Public Class Form1
     End Sub
 
     Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
-        fontColorChange() '如果改变了下拉框就改变fontcolor参数
-        mymou.zhinengModel()
-
+        FontColorChange() '如果改变了下拉框就改变fontcolor参数
+        Creat_Tiao()
 
 
 
