@@ -170,4 +170,10 @@ Public Class Form1
             End If
         Next
     End Sub
+
+    Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
+        core.FrameWork.Automation.InvokeItem("e243b0da-2586-43f0-a3d9-4251ff9f7213")
+        MsgBox("执行成功")
+
+    End Sub
 End Class
