@@ -121,20 +121,30 @@ Module mymou
     Sub Creat_tiaofu()
         Dim creat_s As Shape
         Dim creat_t As Shape
-        Dim kuan As Long
+        Dim movex As Integer = 0
         core.ActiveDocument.Unit = VGCore.cdrUnit.cdrCentimeter
-        creat_s = core.ActiveLayer.CreateRectangle2(0, 0, Form1.ComboBox2.Text, Form1.ComboBox1.Text)
-        creat_t = core.ActiveLayer.CreateArtisticText(0, Form1.ComboBox1.Text, "我是文字", VGCore.cdrTextLanguage.cdrSimplifiedChinese,, fontInter， 1250)
-        If creat_s.CanHaveFill Then
-            creat_s.Fill.UniformColor.CMYKAssign(0, 100, 100, 0)
-            creat_t.Fill.UniformColor.CMYKAssign(0, 0, 0, 0)
-        End If
-        creat_t.SetSize(, 42.5)
-        creat_t.SizeWidth = creat_s.SizeHeight - (creat_s.SizeHeight * 0.08)
-        If creat_t.SizeWidth = creat_s.SizeHeight - (creat_s.SizeHeight * 0.08) Then
-            core.FrameWork.Automation.InvokeItem("e243b0da-2586-43f0-a3d9-4251ff9f7213")
-        End If
-        creat_t.SetPositionEx(VGCore.cdrReferencePoint.cdrTopLeft, (creat_s.SizeWidth - 42.5) / 2, creat_s.TopY - (creat_s.SizeHeight * 0.08 / 2))
+        For i As Integer = 0 To Form1.TextBox1.Lines.Length - 1
+            If Form1.TextBox1.Lines(i) <> "" Then
+                creat_s = core.ActiveLayer.CreateRectangle2(movex, 0, Form1.ComboBox2.Text, Form1.ComboBox1.Text)
+                creat_t = core.ActiveLayer.CreateArtisticText(movex, Form1.ComboBox1.Text, Form1.TextBox1.Lines(i), VGCore.cdrTextLanguage.cdrSimplifiedChinese,, fontInter， 1250)
+                core.FrameWork.Automation.InvokeItem("747d4f35-b3a1-4d4f-a69c-06c4b4f9ff6b")
+                If creat_s.CanHaveFill Then
+                    creat_s.Fill.UniformColor.CMYKAssign(0, 100, 100, 0)
+                    creat_t.Fill.UniformColor.CMYKAssign(0, 0, 0, 0)
+                End If
+                creat_t.SetSize(, 42.5)
+                creat_t.SizeWidth = creat_s.SizeHeight - (creat_s.SizeHeight * 0.08)
+
+                core.FrameWork.Automation.InvokeItem("e243b0da-2586-43f0-a3d9-4251ff9f7213")
+
+                creat_t.SetPositionEx(VGCore.cdrReferencePoint.cdrTopLeft, (creat_s.SizeWidth - 42.5) / 2 + movex, creat_s.TopY - (creat_s.SizeHeight * 0.08 / 2))
+                movex += 75
+            Else
+                MsgBox("出现空行,我跳过这行了哦")
+            End If
+
+        Next
+
 
     End Sub
 
