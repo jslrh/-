@@ -2,6 +2,7 @@
 Imports System.IO
 Imports System.Text
 Imports System.Text.RegularExpressions
+Imports Pinyin4net
 
 Public Class Form1
     Public core As New CorelDRAW.Application
@@ -96,7 +97,7 @@ Public Class Form1
     End Sub
 
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
-
+        Sqlittext()
     End Sub
 
     Private Sub ComboBox3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox3.SelectedIndexChanged
@@ -106,74 +107,42 @@ Public Class Form1
     Private Sub ComboBox4_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox4.SelectedIndexChanged
 
     End Sub
-    Public Function HzTopy(ByVal mystr As String) As String
-        Dim i As Integer
-        Dim J As Integer
-        Dim Pstr As String
-        Try
-            Dim k As Integer = Len(mystr)
-            For J = 1 To k
-                i = Asc(Mid(mystr, J, 1))
-                Dim Py As String
-                Select Case i
-                    Case -20319 To -20284 : Py = "A"
-                    Case -20283 To -19776 : Py = "B"
-                    Case -19775 To -19219 : Py = "C"
-                    Case -19218 To -18711 : Py = "D"
-                    Case -18710 To -18527 : Py = "E"
-                    Case -18526 To -18240 : Py = "F"
-                    Case -18239 To -17923 : Py = "G"
-                    Case -17922 To -17418 : Py = "H"
-                    Case -17417 To -16475 : Py = "J"
-                    Case -16474 To -16213 : Py = "K"
-                    Case -16212 To -15641 : Py = "L"
-                    Case -15640 To -15166 : Py = "M"
-                    Case -15165 To -14923 : Py = "N"
-                    Case -14922 To -14915 : Py = "O"
-                    Case -14914 To -14631 : Py = "P"
-                    Case -14630 To -14150 : Py = "Q"
-                    Case -14149 To -14091 : Py = "R"
-                    Case -14090 To -13319 : Py = "S"
-                    Case -13318 To -12839 : Py = "T"
-                    Case -12838 To -12557 : Py = "W"
-                    Case -12556 To -11848 : Py = "X"
-                    Case -11847 To -11056 : Py = "Y"
-                    Case -11055 To -10247 : Py = "Z"
-                    Case Else : Py = CStr(Chr(i))
-                End Select
-#Disable Warning BC42104 ' 变量“Pstr”在赋值前被使用。可能会在运行时导致 null 引用异常。
-                Pstr = Pstr & Py
-#Enable Warning BC42104 ' 变量“Pstr”在赋值前被使用。可能会在运行时导致 null 引用异常。
-            Next
-            HzTopy = Pstr
-        Catch ex As Exception
-            MsgBox("转成失败！")
-            Return String.Empty
-        End Try
-    End Function
 
     Private Sub TextBox4_TextChanged(sender As Object, e As EventArgs) Handles TextBox4.TextChanged
 
         For Each fonty In FontFamily.Families
             If fonty.Name <> "" Then
-
                 If Asc(fonty.Name) < 0 Then
-                    If TextBox4.Text.ToUpper = HzTopy(fonty.Name) Then
-
+                    Dim newName As String
+                    newName = StringExtension.ToPinYinAbbr(fonty.Name)
+                    If newName.IndexOf(TextBox4.Text.ToUpper) <> -1 Then
                         ComboBox3.Text = fonty.Name
-
                     End If
-
-
                 End If
 
             End If
         Next
+
     End Sub
 
     Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
-        core.FrameWork.Automation.InvokeItem("e243b0da-2586-43f0-a3d9-4251ff9f7213")
-        MsgBox("执行成功")
+        For Each fonty In FontFamily.Families
+            If fonty.Name <> "" Then
+
+
+
+                If Asc(fonty.Name) < 0 Then
+                    Dim newName As String
+                    newName = StringExtension.ToPinYinAbbr(fonty.Name)
+                    For Each abc In newName
+                        If TextBox4.Text = abc Then
+                            MsgBox(fonty.Name)
+                        End If
+                    Next
+                End If
+
+            End If
+        Next
 
     End Sub
 End Class

@@ -130,7 +130,7 @@ Module mymou
                 core.FrameWork.Automation.InvokeItem("747d4f35-b3a1-4d4f-a69c-06c4b4f9ff6b")
                 If creat_s.CanHaveFill Then
                     creat_s.Fill.UniformColor.CMYKAssign(0, 100, 100, 0)
-                    creat_t.Fill.UniformColor.CMYKAssign(0, 0, 0, 0)
+                    creat_t.Fill.UniformColor.CMYKAssign(0, 0, fontcolor, 0)
                 End If
                 creat_t.SetSize(, 42.5)
                 creat_t.SizeWidth = creat_s.SizeHeight - (creat_s.SizeHeight * 0.08)
@@ -159,7 +159,21 @@ Module mymou
 
     End Sub
 
+    Sub Sqlittext()
+        Dim i As Long
 
+        For i = 0 To Form1.TextBox1.Lines.Length - 1
+            If Form1.TextBox1.Lines(i).IndexOf("##") <> -1 Then
+                Dim newstr As String
+                ' Debug.Print(Form1.TextBox1.Lines(i))
+                'Debug.Print(Form1.TextBox1.Lines(i).IndexOf("##"))
+                newstr = Form1.TextBox1.Lines(i).Remove(0, Form1.TextBox1.Lines(i).IndexOf("##") + 2)
+                Debug.Print(newstr.Split("-").ToString)
+
+            End If
+        Next
+
+    End Sub
 
 
 End Module
