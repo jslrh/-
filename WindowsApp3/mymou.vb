@@ -5,6 +5,7 @@ Module mymou
 
     Public fontInter As String
     Public fontcolor As Integer
+    Public glchangebl As Long
     Private core As New CorelDRAW.Application
     Public WithEvents Formdo As ComboBox '调用下拉框的事件
     Sub DefFontContent()
@@ -168,12 +169,37 @@ Module mymou
                 ' Debug.Print(Form1.TextBox1.Lines(i))
                 'Debug.Print(Form1.TextBox1.Lines(i).IndexOf("##"))
                 newstr = Form1.TextBox1.Lines(i).Remove(0, Form1.TextBox1.Lines(i).IndexOf("##") + 2)
-                Debug.Print(newstr.Split("-").ToString)
+                Dim newstrs() As String = newstr.Split("-")
 
+                If IsNumeric(newstrs(0)) Then
+                    glchangebl = newstrs(0)
+                    Debug.Print(glchangebl)
+                Else
+                    MsgBox("自定义尺寸中第一个参数必须为数字哦")
+                End If
             End If
         Next
 
     End Sub
+    '判断当前列表有没有多功能模式代码
+    Sub duogongneng()
+        For Each line In Form1.TextBox1.Lines
+            If line.IndexOf("##") <> -1 Then
+                Debug.Print("找到了")
+            End If
 
 
+
+        Next
+    End Sub
+    Function CreatTIAOFU(fxwidth As Long, ttext As String, thisfont As String)
+        Dim Mshaps As Shape
+        Dim Mtext As Shape
+        core.ActiveDocument.Unit = VGCore.cdrUnit.cdrCentimeter
+        Mshaps = core.ActiveLayer.CreateRectangle2(0, 0, fxwidth, Form1.ComboBox2.Text)
+        Mtext = core.ActiveLayer.CreateArtisticText(0, 0, ttext, VGCore.cdrTextLanguage.cdrSimplifiedChinese,, thisfont, 1280)
+        Mshaps.Fill.UniformColor.CMYKAssign(0, 100, 100, 0)
+        Mtext.Fill.UniformColor.CMYKAssign(0, 0, 0, 0)
+
+    End Function
 End Module

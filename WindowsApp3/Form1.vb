@@ -2,7 +2,7 @@
 Imports System.IO
 Imports System.Text
 Imports System.Text.RegularExpressions
-Imports Pinyin4net
+
 
 Public Class Form1
     Public core As New CorelDRAW.Application
@@ -144,5 +144,9 @@ Public Class Form1
             End If
         Next
 
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        CreatTIAOFU(200, "我是第二个参数", "微软雅黑")
     End Sub
 End Class

@@ -57,6 +57,7 @@ Partial Class Form1
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.Button7 = New System.Windows.Forms.Button()
         Me.Label10 = New System.Windows.Forms.Label()
+        Me.Button5 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -434,11 +435,21 @@ Partial Class Form1
         Me.Label10.TabIndex = 18
         Me.Label10.Text = "横幅内容后面添加 ##宽-白字 可做不同尺寸横幅"
         '
+        'Button5
+        '
+        Me.Button5.Location = New System.Drawing.Point(379, 9)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(75, 23)
+        Me.Button5.TabIndex = 19
+        Me.Button5.Text = "Button5"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(696, 482)
+        Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Button7)
         Me.Controls.Add(Me.Label9)
@@ -503,4 +514,5 @@ Partial Class Form1
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents Label10 As Label
     Friend WithEvents CheckBox3 As CheckBox
+    Friend WithEvents Button5 As Button
 End Class
